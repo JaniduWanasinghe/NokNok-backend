@@ -1,6 +1,6 @@
 import createError from "http-errors";
-import HiredService from "../models/hiredService.model"; // Adjust the path based on your project structure
-import Service from "../models/service.model"; // Assuming you have a Service model, adjust the path accordingly
+import HiredService from "../models/hiredService.model.js";
+import Service from "../models/service.moel.js";
 
 export const hireService = async (req, res, next) => {
   try {

@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import authRoute from "./routes/auth.route.js";
 import serviceRoute from "./routes/service.route.js";
 import CategoryRoute from "./routes/category.route.js";
+import hiredServiceRoute from "./routes/hiredService.route.js";
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -31,6 +33,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/service", serviceRoute);
 app.use("/api/category", CategoryRoute);
+app.use("/api/hired-services", hiredServiceRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
