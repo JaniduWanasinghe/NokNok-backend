@@ -17,11 +17,11 @@ const HiredServiceSchema = new Schema(
       },
     title: {
       type: String,
-      required: true,
+      required: false,
     },
     desc: {
       type: String,
-      required: true,
+      required: false,
     },
     rating: {
       type: Number,
@@ -38,9 +38,13 @@ const HiredServiceSchema = new Schema(
     },
     review: {
       type: Number,
-      required: true,
+      required: false,
     },
-    
+    paymentStatus:{
+        type: String,
+        default: "Pending",
+      }
+    ,
     status: {
       type: String,
       default: 0,
