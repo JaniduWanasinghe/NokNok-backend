@@ -45,12 +45,7 @@ const HiredServiceSchema = new Schema(
       type: String,
       default: 0,
     }
-    ,
     
-    review: {
-      type: String,
-      default: 0,
-    },
   },
   {
     timestamps: true,
