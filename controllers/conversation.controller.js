@@ -1,5 +1,5 @@
 import createError from "http-errors";
-import Conversation from "../models/conversation.model";
+import Conversation from "../models/conversation.model.js";
 
 export const createOrUpdateConversation = async (req, res, next) => {
   try {
