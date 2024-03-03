@@ -33,6 +33,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/service", serviceRoute);
 app.use("/api/category", CategoryRoute);
 app.use("/api/conversations", conversationRoutes);
+app.use('/api/hired-tasks',hiredTaskRoute );
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
