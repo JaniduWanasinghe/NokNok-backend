@@ -4,6 +4,7 @@ import {
   getConversation,
   deleteConversation,
   changeReadStatus,
+  getAllConversationsForUser,
 } from "../controllers/conversation.controller.js";
 import { verifyToken } from "../middleware/jwt.js";
 
@@ -13,7 +14,9 @@ const router = express.Router();
 router.post("/", verifyToken, createOrUpdateConversation);
 
 
-router.get("/", verifyToken, getConversation);
+router.get("/:id", verifyToken, getConversation);
+router.get("/all/:userId", verifyToken, getAllConversationsForUser);
+
 
 router.delete("/", verifyToken, deleteConversation);
 
