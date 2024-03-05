@@ -52,10 +52,7 @@ const ServiceSchema = new Schema(
       type: String,
       required: true,
     },
-    deliveryTime: {
-      type: Number,
-      required: true,
-    },
+  
     sales: {
       type: Number,
       default: 0,

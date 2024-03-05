@@ -36,6 +36,10 @@ const userSchema = new Schema({
     type: String,
     default:false
   },
+  enable: {
+    type: String,
+    default:true
+  }
 },{
   timestamps:true
 });
