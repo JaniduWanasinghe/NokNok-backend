@@ -6,6 +6,8 @@ import hiredTaskRoute from "./routes/hiredTask.route.js";
 
 import serviceRoute from "./routes/service.route.js";
 import CategoryRoute from "./routes/category.route.js";
+import adminRoute from "./routes/admin.route.js";
+
 import conversationRoutes from "./routes/conversation.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -31,7 +33,7 @@ mongoose.set("strictQuery", true);
 
 const connect = async () => {
   try {
-    await mongoose.connect("mongodb+srv://sashika:Icanit11@cluster0.shsmmtd.mongodb.net/?retryWrites=true&w=majority");
+    await mongoose.connect("mongodb+srv://indurangaharitha:idu123@cluster0.tfvyrfe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
     console.log("Connected to mongoDB!");
   } catch (error) {
     console.log(error);
@@ -102,6 +104,8 @@ app.use("/api/category", CategoryRoute);
 app.use("/api/conversations", conversationRoutes);
 app.use('/api/hired-tasks',hiredTaskRoute );
 app.use('/api/report', reportRoutes);
+app.use('/api/admin', adminRoute);
+
 
 
 

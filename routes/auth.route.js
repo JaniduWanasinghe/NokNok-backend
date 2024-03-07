@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login, logout } from "../controllers/auth.controller.js";
+import { register, login, logout,getAllUsers,toggleUserStatus } from "../controllers/auth.controller.js";
 import multer from "multer";
 import path from "path";
 
@@ -20,5 +20,6 @@ const router = express.Router();
 router.post("/register",upload.single("image"), register)
 router.post("/login", login)
 router.post("/logout", logout)
-
+router.get("/all", getAllUsers)
+router.put("/toggleUserStatus/:userId",toggleUserStatus)
 export default router;

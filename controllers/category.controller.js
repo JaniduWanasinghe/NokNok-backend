@@ -2,8 +2,10 @@ import Category from "../models/category.model.js";
 import createError from "../utils/createError.js";
 
 export const createCategory = async (req, res, next) => {
-  if (!req.body.role=='admin')
+  if (!req.role=='admin'){
     return next(createError(403, "Only admin can create a service!"));
+
+  }
 const{title,desc}=req.body;
 const coverImageName = req.file ? req.file.filename : '';
 
@@ -23,6 +25,7 @@ scount:0,
 };
 
 export const deleteCategory = async (req, res, next) => {
+  
   try {
     const service = await Category.findById(req.params.id);
     if (service.userId !== req.userId)

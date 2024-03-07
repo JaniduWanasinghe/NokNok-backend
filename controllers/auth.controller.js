@@ -37,7 +37,7 @@ export const login = async (req, res, next) => {
     const token = jwt.sign(
       {
         id: user._id,
-        isSeller: user.isSeller,
+        role: user.Role,
       },
       process.env.JWT_KEY
     );
@@ -64,3 +64,40 @@ export const logout = async (req, res) => {
     .status(200)
     .send("User has been logged out.");
 };
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+export const toggleUserStatus = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Toggle the enable field
+    if(user.enable==="true"){
+      user.enable = "false";
+
+    }
+    else{
+      user.enable = "true";
+
+    }
+
+
+    const updatedUser = await user.save();
+console.log(updatedUser)
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
