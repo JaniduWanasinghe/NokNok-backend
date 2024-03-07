@@ -122,7 +122,7 @@ export const getHiredTasksByUserId = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-  };  
+  };
   export const paymentIntent=async (req, res) => {
   const total=req.body.total;
     try {
