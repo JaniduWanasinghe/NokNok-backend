@@ -33,7 +33,7 @@ mongoose.set("strictQuery", true);
 
 const connect = async () => {
   try {
-    await mongoose.connect("mongodb+srv://sashika:Icanit11@cluster0.shsmmtd.mongodb.net/?retryWrites=true&w=majority");
+    await mongoose.connect("mongodb+srv://indurangaharitha:idu123@cluster0.tfvyrfe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
     console.log("Connected to mongoDB!");
   } catch (error) {
     console.log(error);
