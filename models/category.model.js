@@ -17,7 +17,7 @@ const CategorySchema = new Schema(
       required: true,
     },
     scount:{
-        type: String,
+        type: Number,
         required: true,
       }
     

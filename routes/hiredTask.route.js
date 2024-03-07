@@ -7,6 +7,7 @@ import {
   getHiredTasksByUserId,
   getAllHiredTasks,
   paymentIntent,
+  getAllCountsbyId
 } from '../controllers/hiredTask.controller.js';
 import { verifyToken } from "../middleware/jwt.js";
 import stripe from 'stripe';
@@ -31,6 +32,8 @@ router.get('/by-user/:userId',verifyToken, getHiredTasksByUserId);
 
 // Get all hired tasks
 router.get('/all',verifyToken, getAllHiredTasks);
+router.get('/countbyid/:userId',verifyToken, getAllCountsbyId);
+
 router.get('/test', async (req, res) => {
   return "test"
 })

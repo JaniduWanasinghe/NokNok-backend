@@ -2,12 +2,19 @@ import User from "../models/user.model.js";
 import createError from "../utils/createError.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { io } from '../server.js'; // Adjust the path accordingly
+
+
+
 
 export const register = async (req, res, next) => {
   try {
+    const ImageName = req.file ? req.file.filename : '';
+
     const hash = bcrypt.hashSync(req.body.password, 5);
     const newUser = new User({
       ...req.body,
+      img:ImageName,
       password: hash,
     });
 
@@ -32,14 +39,15 @@ export const login = async (req, res, next) => {
         id: user._id,
         isSeller: user.isSeller,
       },
-      "mySecretKey"
+      process.env.JWT_KEY
     );
+  
+    res.cookie("accessToken", token);
+    io.emit('notification', `${user.username} has logged in.`);
 
     const { password, ...info } = user._doc;
+    console.log(token)
     res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-      })
       .status(200)
       .send(info);
   } catch (err) {

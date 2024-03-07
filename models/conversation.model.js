@@ -5,6 +5,7 @@ const MessageSchema = new Schema(
   {
     senderId: {
       type: String,
+      
       required: true,
     },
     text: {
@@ -20,18 +21,24 @@ const MessageSchema = new Schema(
 const ConversationSchema = new Schema(
   {
     sellerId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     buyerId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     lastMessage: {
       type: String,
       required: false,
     },
-    read:{
+    sellerread:{
+      type: Boolean,
+      required:false
+    },
+    buyerread:{
       type: Boolean,
       required:false
     },

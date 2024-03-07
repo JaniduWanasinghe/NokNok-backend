@@ -140,4 +140,55 @@ export const getHiredTasksByUserId = async (req, res, next) => {
     }
   }
 
+  export const getAllCounts = async (req, res, next) => {
+    try {
+      const allServicesCount = await Service.countDocuments({});
+      const pendingServicesCount = await HiredTask.countDocuments({ status: 'pending' });
+      const processingServicesCount = await HiredTask.countDocuments({ status: 'processing' });
+      const acceptedServicesCount = await HiredTask.countDocuments({ status: 'accepted' });
+      const doneServicesCount = await HiredTask.countDocuments({ status: 'done' });
+  
+      res.status(200).json({
+        allServicesCount,
+        pendingServicesCount,
+        processingServicesCount,
+        acceptedServicesCount,
+        doneServicesCount,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  export const getAllCountsbyId = async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+  
+      const allServicesCount = await HiredTask.countDocuments({
+        $or: [{ buyerId: userId }, { sellerId: userId }]
+      });
+      const userPendingServicesCount = await HiredTask.countDocuments({
+        $or: [{ buyerId: userId, status: 'pending' }, { sellerId: userId, status: 'pending' }]
+      });
+      const userProcessingServicesCount = await HiredTask.countDocuments({
+        $or: [{ buyerId: userId, status: 'processing' }, { sellerId: userId, status: 'processing' }]
+      });
+      const userAcceptedServicesCount = await HiredTask.countDocuments({
+        $or: [{ buyerId: userId, status: 'accepted' }, { sellerId: userId, status: 'accepted' }]
+      });
+      const userDoneServicesCount = await HiredTask.countDocuments({
+        $or: [{ buyerId: userId, status: 'done' }, { sellerId: userId, status: 'done' }]
+      });
+  
+      res.status(200).json({
+        allServicesCount,
+        userPendingServicesCount,
+        userProcessingServicesCount,
+        userAcceptedServicesCount,
+        userDoneServicesCount,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
   
