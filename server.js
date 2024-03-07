@@ -6,6 +6,8 @@ import hiredTaskRoute from "./routes/hiredTask.route.js";
 
 import serviceRoute from "./routes/service.route.js";
 import CategoryRoute from "./routes/category.route.js";
+import adminRoute from "./routes/admin.route.js";
+
 import conversationRoutes from "./routes/conversation.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -102,6 +104,8 @@ app.use("/api/category", CategoryRoute);
 app.use("/api/conversations", conversationRoutes);
 app.use('/api/hired-tasks',hiredTaskRoute );
 app.use('/api/report', reportRoutes);
+app.use('/api/admin', adminRoute);
+
 
 
 
