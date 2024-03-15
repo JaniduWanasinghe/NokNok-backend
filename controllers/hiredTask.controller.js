@@ -1,4 +1,6 @@
 import HiredTask from "../models/hiredTask.model.js";
+import User from "../models/user.model.js";
+
 import Service from "../models/service.moel.js";
 import stripe from 'stripe';
 const stripeSecretKey = 'sk_test_51Oq7FJGxxBUoEIaM1mhVGT6CosxjWadPG96qxmqZZAGGfUCWxxje3sHbZjm2RaaXERkdqREDowobo5wGkRsPt7bI00B0o8YOnb';
@@ -18,16 +20,20 @@ const serviceId=service._id;
 const title=service.title;
 const sellerId=service.userId;
 const buyerId=user._id;
+const buyerName=user.username;
 const rate=service.price;
 const cover=service.cover;
+const buyerImage=user.img;
     const hiredTask = new HiredTask({
       sellerId,
       buyerId,
+      buyerName,
       title,
       note:message,
       location,
       serviceId,
       total:total,
+      buyerImage,
       cover,
       rate,
       hours      
@@ -191,4 +197,15 @@ export const getHiredTasksByUserId = async (req, res, next) => {
       next(err);
     }
   };
+  export const getHiredTasksByServiceId = async (req, res, next) => {
+    try {
+      const { serviceId } = req.params;
   
+      const hiredTasks = await HiredTask.find({ serviceId });
+  
+  
+      res.status(200).json(hiredTasks);
+    } catch (err) {
+      next(err);
+    }
+  };

@@ -12,6 +12,10 @@ const HiredTaskSchema = new Schema(
         type: String,
         required: true,
       },
+      buyerName:{
+        type: String,
+        required: false,
+      },
     title: {
       type: String,
       required: true,
@@ -60,6 +64,10 @@ const HiredTaskSchema = new Schema(
     payment: {
       type: String,
       default:"Pending",
+    },
+    buyerImage:{
+      type: String,
+      required: false,
     }
 
  

@@ -28,8 +28,7 @@ export const deleteCategory = async (req, res, next) => {
   
   try {
     const service = await Category.findById(req.params.id);
-    if (service.userId !== req.userId)
-      return next(createError(403, "You can delete only your service!"));
+
 
     await Category.findByIdAndDelete(req.params.id);
     res.status(200).send("Category has been deleted!");

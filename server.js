@@ -74,14 +74,14 @@ io.on("connection", (socket) => {
 
   socket.on("sendNotification", ({ senderName, receiverName, type }) => {
     const receiver = getUser(receiverName);
-    console.log({"reciver":receiverName})
-    if(receiver){
+    console.log({ "reciver": receiverName })
+    if (receiver) {
       io.to(receiver.socketId).emit("getNotification", {
         senderName,
         type,
       });
     }
- 
+
   });
 
   socket.on("sendText", ({ senderName, receiverName, text }) => {
@@ -102,7 +102,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/service", serviceRoute);
 app.use("/api/category", CategoryRoute);
 app.use("/api/conversations", conversationRoutes);
-app.use('/api/hired-tasks',hiredTaskRoute );
+app.use('/api/hired-tasks', hiredTaskRoute);
 app.use('/api/report', reportRoutes);
 app.use('/api/admin', adminRoute);
 

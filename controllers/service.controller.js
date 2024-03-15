@@ -9,28 +9,6 @@ import category from "../models/category.model.js";
 
 
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     const uploadDir = path.join(__dirname, "uploads");
-    
-//     // Create the "uploads" directory if it doesn't exist
-//     if (!fs.existsSync(uploadDir)) {
-//       fs.mkdirSync(uploadDir);
-//     }
-
-//     cb(null, uploadDir);
-//   },
-//   filename: (req, file, cb) => {
-//     const uniqueName = `${uuidv4()}-${Date.now()}${path.extname(file.originalname)}`;
-//     cb(null, uniqueName);
-//   },
-// });
-// const upload = multer({
-//   storage,
-//   limits: { fileSize: 5 * 1024 * 1024 }, 
-// });
-//export const uploadImagesMiddleware = upload.array("images", 3); // Allow up to 5 images, adjust as needed
-
 
 export const createService = async (req, res, next) => {
  console.log(req.body)
@@ -42,16 +20,7 @@ console.log(req.Role);
     const imageFileNames = req.files.map(file => file.filename);
 
 
-    // if (!req.files || req.files.length === 0) {
-    //   return next(createError(400, "At least one image is required!"));
-    // }
-    // uploadImagesMiddleware(req, res, (err) => {
-    //   if (err) {
-    //     return next(createError(400, err));
-    //   }})
-
-    // Extracting image file paths from the request
-    // const images = req.files.map(file => file.path);
+ 
   const newService =  new Service({
     userId: userId,
     title,
@@ -76,8 +45,10 @@ console.log(req.Role);
   }
 };
 export const deleteService = async (req, res, next) => {
+  console.log({use:req.userId})
   try {
     const service = await Service.findById(req.params.id);
+    console.log(service)
     if (service.userId !== req.userId)
       return next(createError(403, "You can delete only your service!"));
 
@@ -119,3 +90,38 @@ export const getServices = async (req, res, next) => {
   }
 };
 
+export const updateService = async (req, res, next) => {
+  try {
+    const updateFields = {};
+console.log(res.body)
+    const { title, desc, catid, cat, price, shortTitle, shortDesc, deliveryTime } = req.body;
+    if (title) updateFields.title = title;
+    if (desc) updateFields.desc = desc;
+    if (Array.isArray(catid) && catid.length > 0) {
+      updateFields.catid = catid.map(String); // Convert each element to string
+    } else if (catid) {
+      // Handle single catid
+      updateFields.catid = String(catid); // Convert to string
+    }
+
+    if (cat) updateFields.cat = cat;
+    if (price) updateFields.price = price;
+    if (req.files && req.files.length > 0) {
+      updateFields.cover = req.files[0].filename;
+      updateFields.images = req.files.map(file => file.filename);
+    }
+    if (shortTitle) updateFields.shortTitle = shortTitle;
+    if (shortDesc) updateFields.shortDesc = shortDesc;
+    if (deliveryTime) updateFields.deliveryTime = deliveryTime;
+
+    const updatedService = await Service.findByIdAndUpdate(req.params.id, updateFields, { new: true });
+
+    if (!updatedService) {
+      return next(createError(404, "Service not found!"));
+    }
+
+    res.status(200).json(updatedService);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -3,7 +3,8 @@ import {
   createService,
   deleteService,
   getService,
-  getServices
+  getServices,
+  updateService
 } from "../controllers/service.controller.js";
 import { verifyToken } from "../middleware/jwt.js";
 import multer from "multer";
@@ -32,5 +33,6 @@ router.delete("/:id", verifyToken, deleteService);
 
 router.get("/single/:id", getService);
 router.get("/",verifyToken, getServices);
+router.put("/:id", verifyToken, upload.array('images'), updateService); 
 
 export default router;
